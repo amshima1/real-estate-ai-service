@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate AI Service Dashboard</title>
+    <!-- Tailored styling structure mimicking modern software consoles -->
+    <style>
+        :root {
+            --bg-main: #0b0f19;
+            --bg-card: #151d30;
+            --bg-input: #0e1422;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --border: #1f293d;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            min-h: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        header {
+            border-bottom: 1px solid var(--border);
+            padding: 1.5rem 1rem;
+            text-align: center;
+        }
+        header h1 { font-size: 1.25rem; font-weight: 700; tracking: -0.025em; }
+        main {
+            max-width: 900px;
+            width: 100%;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        @media (min-width: 768px) {
+            main { grid-template-columns: 1fr 1fr; }
+        }
+        .panel {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .panel-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .panel-subtitle { font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 1.5rem; }
+        .form-group { margin-bottom: 1rem; }
+        label { display: block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 0.35rem; tracking: 0.05em; }
+        input, textarea {
+            width: 100%;
+            background-color: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+            color: var(--text-primary);
+            outline: none;
+        }
+        input:focus, textarea:focus { border-color: var(--accent); }
+        textarea { resize: none; }
+        button {
+            width: 100%;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            padding: 0.85rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: auto;
+        }
+        button:hover { background-color: var(--accent-hover); }
+        button:disabled { background-color: var(--border); color: var(--text-secondary); cursor: not-allowed; }
+        .output-box {
+            background-color: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            flex-grow: 1;
+            min-height: 250px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Real Estate AI Service Engine</h1>
+    </header>
+
+    <main>
+        <!-- Data Entry Node -->
+        <section class="panel">
+            <h2 class="panel-title">Property parameters</h2>
+            <p class="panel-subtitle">Provide structural specifications to run data validation model rules.</p>
+            
+            <form id="propertyForm">
+                <div class="form-group">
+                    <label>Property Architecture Type</label>
+                    <input type="text" id="propertyType" placeholder="e.g. Detached Duplex" required>
+                </div>
+                <div class="form-group">
+                    <label>Bedrooms Configuration</label>
+                    <input type="number" id="bedrooms" placeholder="e.g. 4" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label>Geographic Hub Hub</label>
+                    <input type="text" id="location" placeholder="e.g. Lekki Phase 1, Lagos" required>
+                </div>
+                <div class="form-group">
+                    <label>Price Valuation</label>
+                    <input type="text" id="price" placeholder="e.g. ₦150,000,000" required>
+                </div>
+                <div class="form-group">
+                    <label>Salient Key Features</label>
+                    <textarea id="features" rows="4" placeholder="e.g. 24/7 Smart Solar Grid, Fitted Italian Kitchen, Swimming Pool" required></textarea>
+                </div>
+                <button type="submit" id="actionBtn">Execute Validation Run</button>
+            </form>
+        </section>
+
+        <!-- Response Asset Panel -->
+        <section class="panel">
+            <h3 class="panel-title">Engine Response Output</h3>
+            <p class="panel-subtitle">Decoupled schema metrics will render here once server processes payload.</p>
+            <div class="output-box" id="outputConsole">Awaiting data injection parameters...</div>
+        </section>
+    </main>
+
+    <script>
+        // Form transmission logic script will slot here in Step 4
+        console.log("Interface operational module primed.");
+    </script>
+</body>
+</html>
