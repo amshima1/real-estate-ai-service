@@ -8,6 +8,7 @@ app = FastAPI(
     version="1.0.0"
 )
 
+# Enable CORS so your decoupled frontend can safely communicate with this backend API
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -15,34 +16,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
+# The structural schema matching your frontend inputs exactly
 class PropertyPayload(BaseModel):
-    property_type: str = Field(
-        ...,
-        min_length=2,
-        description="Type of property, e.g. Detached Duplex"
-    )
-    bedrooms: int = Field(
-        ...,
-        ge=0,
-        description="Number of bedrooms"
-    )
-    location: str = Field(
-        ...,
-        min_length=2,
-        description="Property location"
-    )
-    price: str = Field(
-        ...,
-        min_length=1,
-        description="Property price"
-    )
-    unique_features: str = Field(
-        ...,
-        min_length=2,
-        description="Important property features"
-    )
-
+    property_type: str = Field(..., min_length=2, description="Type of property, e.g. Detached Duplex")
+    bedrooms: int = Field(..., ge=0, description="Number of bedrooms")
+    location: str = Field(..., min_length=2, description="Property location")
+    price: str = Field(..., min_length=1, description="Property price")
+    unique_features: str = Field(..., min_length=2, description="Important property features")
 
 @app.get("/", status_code=status.HTTP_200_OK)
 async def root():
@@ -52,23 +32,25 @@ async def root():
         "version": "1.0.0"
     }
 
-
 @app.get("/health", status_code=status.HTTP_200_OK)
 async def health_check():
     return {
         "status": "healthy"
     }
 
-
-@app.post("/generate-description", status_code=status.HTTP_200_OK)
+@app.post("/properties/generate", status_code=status.HTTP_200_OK)
 async def generate_description(payload: PropertyPayload):
-
+    # Mock generation engine that simulates our future AI output
     generated_text = (
-        f"Discover this beautiful {payload.bedrooms}-bedroom "
-        f"{payload.property_type} in {payload.location}. "
-        f"Priced at {payload.price}, this property offers "
-        f"{payload.unique_features}. "
-        f"Contact us today to schedule a viewing."
+        f"MARKETING LISTING COPY\n"
+        f"=======================\n"
+        f"Discover this premium, beautifully designed {payload.bedrooms}-bedroom "
+        f"{payload.property_type} situated in the highly sought-after neighborhood of {payload.location}.\n\n"
+        f"Market Valuation: {payload.price}\n\n"
+        f"Property Highlights & Amenities:\n"
+        f"• {payload.unique_features}\n\n"
+        f"This exceptional property offers an unmatched living experience. "
+        f"Contact our agency today to coordinate an exclusive private viewing layout."
     )
 
     return {
