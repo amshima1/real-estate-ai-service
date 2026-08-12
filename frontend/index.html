@@ -142,8 +142,62 @@
     </main>
 
     <script>
-        // Form transmission logic script will slot here in Step 4
-        console.log("Interface operational module primed.");
+        document.getElementById('propertyForm').addEventListener('submit', async (event) => {
+    // 1. Prevent standard browser form execution refresh
+    event.preventDefault();
+
+    const actionBtn = document.getElementById('actionBtn');
+    const outputConsole = document.getElementById('outputConsole');
+
+    // 2. State configuration: Disable interface button and initialize loading text
+    actionBtn.disabled = true;
+    actionBtn.innerText = "Generating...";
+    outputConsole.innerText = "Processing structural layout pipeline... Please wait...";
+
+    // 3. Read values and convert bedrooms payload variables directly into a number
+    const payload = {
+        property_type: document.getElementById('propertyType').value,
+        bedrooms: parseInt(document.getElementById('bedrooms').value, 10),
+        location: document.getElementById('location').value,
+        price: document.getElementById('price').value,
+        unique_features: document.getElementById('features').value
+    };
+
+    // 4. API Endpoint Management Target Variable
+    // Change this URL string when migrating from local development testing to cloud deployment
+    const API_BASE_URL = "http://127.0.0.1:8000";
+
+    try {
+        // 5. Connect and stream data using standard fetch operations
+        const response = await fetch(`${API_BASE_URL}/properties/generate`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+            // 6. Output valid server data directly back to console viewport
+            outputConsole.innerText = data.generated_text;
+        } else {
+            // Error safety logic check for bad responses (e.g., validation rules mismatch)
+            outputConsole.innerText = `Validation Error: ${data.detail || 'The request payload failed backend verification rules.'}`;
+        }
+
+    } catch (error) {
+        // 7. Render dynamic user alert message block on infrastructure connection drops
+        outputConsole.innerText = "Connection Failed. Please ensure your Python FastAPI server is active and running locally on port 8000.";
+        console.error("Network Error Profile:", error);
+    } finally {
+        // 8. Reinstate active state components across user client operations
+        actionBtn.disabled = false;
+        actionBtn.innerText = "Execute Validation Run";
+    }
+});
+
     </script>
 </body>
 </html>
