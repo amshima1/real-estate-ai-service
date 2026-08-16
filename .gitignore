@@ -2,3 +2,19 @@ __pycache__/
 *.pyc
 *.db
 .env
+
+# Uploaded property images
+backend/uploads/
+
+# Backup files
+*.backup
+*.before-views
+
+# Test images
+*-test.png
+test-image.png
+
+# Temporary test file
+qlite3
+
+frontend/*.dashboard-backup
